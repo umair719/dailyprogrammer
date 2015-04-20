@@ -1,6 +1,7 @@
 __author__ = 'Umair'
 
 '''
+http://www.reddit.com/r/dailyprogrammer/comments/32goj8/20150413_challenge_210_easy_intharmonycom/
 Description:
 
 In this modern fast paced time of the internet it is a busy place for hardworking unsigned integers (lets just call them ints) Believe it or not these ints love to date and hook up. But they don't always get along.
@@ -41,5 +42,25 @@ So our output should be
  42 should avoid 213
 Okay so not a great match but at intHarmony.com but we have done our job.
 
-
 '''
+
+def intharmony(x, y, bits):
+    binX =  bin(x)[2:]
+    binY = bin(y)[2:]
+    yLen = len(binY)
+    xLen = len(binX)
+    binY = (bits - yLen) * "0" + binY
+    binX = (bits - xLen) * "0" + binX
+    match = 0
+    for X in range(0, len(binX)):
+        binXcompare = binX[xLen - X - 1]
+        binYcompare = binY[xLen - X - 1]
+        if binXcompare == binYcompare:
+            match = match + 1
+    harmony = match / bits * 100
+    print(match , "Bits Matched!")
+    print(harmony , "% Compatibility")
+    print(x, "should avoid" , int(''.join('1' if x == '0' else '0' for x in binX), 2))
+    print(y, "should avoid" , int(''.join('1' if x == '0' else '0' for x in binY), 2))
+
+intharmony(10, 2, 8)
